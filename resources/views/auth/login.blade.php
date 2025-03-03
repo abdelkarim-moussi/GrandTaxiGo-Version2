@@ -76,6 +76,7 @@
                         </span>
                         Se connecter
                     </button>
+                    <a href="{{ route('google.redirect')}}">login with google</a>
                 </div>
                 @csrf
             </form>

@@ -6,6 +6,8 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\GoogleLoginController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,4 +48,7 @@ Route::middleware(['guest'])->group(function(){
     //login routes
     Route::get('/login',[AuthenticatedSessionController::class,'create']);
     Route::post('/login',[AuthenticatedSessionController::class,'login']);
+
+    Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+    Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 });
