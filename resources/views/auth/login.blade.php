@@ -76,8 +76,10 @@
                         </span>
                         Se connecter
                     </button>
-                    <a href="{{ route('google.redirect')}}">login with google</a>
-                    <a href="{{ route('facebook.redirect')}}">login with facebook</a>
+                    <div class="flex flex-col gap-2 mt-4">
+                        <a href="{{ route('google.redirect')}}" class="w-full border rounded-md py-1 px-2 text-center hover:border-blue-600 flex gap-5 items-center justify-center"><img src="{{asset('imgs/google-icon.png')}}" class="w-[30px]" alt="google auth"> continue avec google</a>
+                        <a href="{{ route('facebook.redirect')}}" class="w-full border rounded-md py-1 px-2 text-center hover:border-blue-600 flex gap-5 items-center justify-center" ><img src="{{asset('imgs/facebook-icon.png')}}" class="w-[30px]" alt="facebook auth"> continue avec facebook</a>
+                    </div>
                 </div>
                 @csrf
             </form>
