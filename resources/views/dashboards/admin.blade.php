@@ -142,7 +142,6 @@
                                         <span class="font-medium text-yellow-500">Il y a {{$user->created_at->diffInHours(now())}} heures</span>
                                     </div>
                                 </li>
-                                
                                 @endforeach
                             </ul>
                         </div>
@@ -305,9 +304,9 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <div>
                                                 @if($user->account_status == 'active')
-                                                <a href="" class="text-red-600 bg-red-100 px-2 rounded-full">suspend</a>
+                                                <a href="" class="text-white bg-red-600 px-3 py-1 rounded-md">suspend</a>
                                                 @else
-                                                <a href="" class="text-green-600 bg-green-100 px-2 rounded-full">activate</a>
+                                                <a href="" class="text-white bg-green-600 px-2 rounded-md">activate</a>
                                                 @endif
                                                 </div>
                                             </td>

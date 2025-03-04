@@ -26,11 +26,21 @@ class GoogleLoginController extends Controller
             $user = User::create(['firstname' => $fullname[0],'lastname' => $fullname[1], 'email' => $googleUser->email,'phone'=>'null','account_type'=>'passenger','photo'=>'null', 'password' => Hash::make(rand(100000,999999))]);
         }
 
-        Auth::login($user);
+        if($user->account_status == 'active')
+        {
+            Auth::login($user);
 
-        if($user->account_type == 'admin'){
-            return redirect('admin');
+            if($user->account_type == 'admin'){
+                return redirect('admin');
+            }
+
+            return redirect('/');
         }
-        return redirect('/');
+
+        else
+        {
+            return redirect()->back()->with('message','your account has been suspended');
+        }
+        
     }
 }
