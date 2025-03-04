@@ -135,23 +135,14 @@
                                 <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                                     <div class="w-0 flex-1 flex items-center">
                                         <span class="ml-2 flex-1 w-0 truncate">
-                                            Ahmed Alami - Chauffeur
+                                            {{$user->firstname .' '.$user->lastname}} - {{$user->account_type}}
                                         </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
-                                        <span class="font-medium text-yellow-500">Il y a 2 heures</span>
+                                        <span class="font-medium text-yellow-500">Il y a {{$user->created_at}}</span>
                                     </div>
                                 </li>
-                                <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                                    <div class="w-0 flex-1 flex items-center">
-                                        <span class="ml-2 flex-1 w-0 truncate">
-                                            Sara Bennani - Client
-                                        </span>
-                                    </div>
-                                    <div class="ml-4 flex-shrink-0">
-                                        <span class="font-medium text-yellow-500">Il y a 3 heures</span>
-                                    </div>
-                                </li>
+                                
                                 @endforeach
                             </ul>
                         </div>

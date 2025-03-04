@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::where('account_type','not like','admin');
+        $users = User::where('account_type','not like','admin')->get();
         $drivers = Driver::all();
         $actuelReservations = Reservation::where('date','=',now());
 
