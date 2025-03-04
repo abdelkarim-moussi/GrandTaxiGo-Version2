@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegistredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DriverController;
@@ -42,6 +43,11 @@ Route::middleware(['auth','is_passenger:passenger'])->group(function(){
         Route::get('stripe', 'stripe');
         Route::post('stripe', 'stripePost')->name('stripe.post');
     });
+
+});
+
+Route::middleware(['auth','admin'])->group(function(){
+    Route::get('/admin',[AdminController::class,'index']);
     
 });
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('photo');
-            $table->enum('account_type',['driver','passenger']);
+            $table->enum('account_type',['driver','passenger','admin']);
             $table->string('password');
             $table->timestamps();
             $table->string('facebook_id')->nullable();
