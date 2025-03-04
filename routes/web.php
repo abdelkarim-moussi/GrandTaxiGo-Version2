@@ -10,7 +10,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\StripePaymentController;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('index');

@@ -139,7 +139,7 @@
                                         </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
-                                        <span class="font-medium text-yellow-500">Il y a {{$user->created_at}}</span>
+                                        <span class="font-medium text-yellow-500">Il y a {{$user->created_at->diffInHours(now())}} heures</span>
                                     </div>
                                 </li>
                                 
@@ -225,6 +225,96 @@
                                                 400 MAD
                                             </td>
                                         </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="mt-8">
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Les Utilisateurs de L'application
+                    </h3>
+                </div>
+                <div class="flex flex-col">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="overflow-hidden border-b border-gray-200">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Prenom
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Nom
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Telephone
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Email
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Type de Compte
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                statut
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        @foreach($users as $user)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm font-medium text-gray-900">{{$user->firstname}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$user->lastname}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$user->phone}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{$user->email}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600">
+                                                {{$user->account_type}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                @if($user->account_status == 'active')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    {{$user->account_status}}
+                                                </span>
+                                                @else
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    {{$user->account_status}}
+                                                </span>
+                                                @endif
+                                            </td>
+
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <div>
+                                                @if($user->account_status == 'active')
+                                                <a href="" class="text-red-600 bg-red-100 px-2 rounded-full">suspend</a>
+                                                @else
+                                                <a href="" class="text-green-600 bg-green-100 px-2 rounded-full">activate</a>
+                                                @endif
+                                                </div>
+                                            </td>
+                                        
+                                        </tr>
+                                        @endforeach
+                                     
                                     </tbody>
                                 </table>
                             </div>

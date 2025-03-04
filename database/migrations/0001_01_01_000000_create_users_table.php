@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamps();
             $table->string('facebook_id')->nullable();
+            $table->enum('account_status',['active','suspended'])->default('active');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
