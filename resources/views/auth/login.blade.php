@@ -27,7 +27,7 @@
                 </h2>
                 <p class="mt-2 text-center text-sm text-gray-600">
                     Ou
-                    <a href="register.html" class="font-medium text-yellow-500 hover:text-yellow-600">
+                    <a href="/register" class="font-medium text-yellow-500 hover:text-yellow-600">
                         créez un nouveau compte
                     </a>
                 </p>

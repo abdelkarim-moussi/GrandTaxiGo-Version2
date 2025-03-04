@@ -14,23 +14,9 @@
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="text-2xl font-bold text-yellow-500">PIPYalah Admin</div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="/dashboards/admin" class="text-yellow-500">Dashboard</a>
-                    <a href="/drivers" class="text-gray-600 hover:text-yellow-500">Chauffeurs</a>
-                    <a href="/" class="text-gray-600 hover:text-yellow-500">Site Principal</a>
-                    <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-                        Déconnexion
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <x-navigation>
+
+    </x-navigation>
 
     <!-- Dashboard Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -51,7 +37,7 @@
                                     Utilisateurs Totaux
                                 </dt>
                                 <dd class="text-lg font-bold text-gray-900">
-                                    1,234
+                                    {{$users->count()}}
                                 </dd>
                             </dl>
                         </div>
@@ -75,7 +61,7 @@
                                     Chauffeurs Actifs
                                 </dt>
                                 <dd class="text-lg font-bold text-gray-900">
-                                    89
+                                    {{$drivers->count()}}
                                 </dd>
                             </dl>
                         </div>
@@ -98,7 +84,7 @@
                                     Courses Aujourd'hui
                                 </dt>
                                 <dd class="text-lg font-bold text-gray-900">
-                                    156
+                                    {{$actuel_reservations->count()}}
                                 </dd>
                             </dl>
                         </div>
@@ -145,6 +131,7 @@
                         </div>
                         <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+                                @foreach($users as $user)
                                 <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                                     <div class="w-0 flex-1 flex items-center">
                                         <span class="ml-2 flex-1 w-0 truncate">
@@ -165,6 +152,7 @@
                                         <span class="font-medium text-yellow-500">Il y a 3 heures</span>
                                     </div>
                                 </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

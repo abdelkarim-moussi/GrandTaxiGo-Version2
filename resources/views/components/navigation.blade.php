@@ -16,10 +16,15 @@
                     <a href="/reservations" class="text-gray-600 hover:text-yellow-500">Demandes</a>
                     @endif
 
+                    @if(Auth::user()->account_type == 'admin')
+                    <a href="/admin" class="text-gray-600 hover:text-yellow-500">Dashboard</a>
+                    @endif
+
                     <a href="/profile" class="text-gray-600 hover:text-yellow-500">profil</a>
                     <a href="/logout" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">
                             logout
                     </a>
+                    
                     @endauth
                     @guest
                         <a href="/drivers" class="text-gray-600 hover:text-yellow-500">Chauffeurs</a>

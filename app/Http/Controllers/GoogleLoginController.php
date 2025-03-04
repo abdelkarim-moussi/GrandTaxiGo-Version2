@@ -28,6 +28,9 @@ class GoogleLoginController extends Controller
 
         Auth::login($user);
 
-        redirect('index');
+        if($user->account_type == 'admin'){
+            return redirect('admin');
+        }
+        return redirect('/');
     }
 }

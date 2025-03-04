@@ -27,7 +27,7 @@
                 </h2>
                 <p class="mt-2 text-center text-sm text-gray-600">
                     Ou
-                    <a href="login.html" class="font-medium text-yellow-500 hover:text-yellow-600">
+                    <a href="/login" class="font-medium text-yellow-500 hover:text-yellow-600">
                         connectez-vous à votre compte existant
                     </a>
                 </p>
@@ -91,11 +91,11 @@
                         <label for="driver-lisence" class="block mb-2 text-sm font-medium text-gray-700">
                             Permis de Conduit
                         </label>
-                        <input id="driver-lisence" name="driver-lisence" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm" placeholder="Permis">
+                        <input id="driver-lisence" name="driver-lisence" type="text" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm" placeholder="Permis">
                     </div>
                     <div class="mt-2">
                         <label for="city" class="sr-only">Ville</label>
-                        <input id="city" name="city" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm" placeholder="ville actuel">
+                        <input id="city" name="city" type="text" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm" placeholder="ville actuel">
                     </div>
                     
                 </div>
