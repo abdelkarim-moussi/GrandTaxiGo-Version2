@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'is_driver' => App\Http\Middleware\DriverMiddleware::class,
-            'is_passenger'=>App\Http\Middleware\PassengerMiddleware::class
+            'is_passenger'=>App\Http\Middleware\PassengerMiddleware::class,
+            'is_admin'=>App\Http\Middleware\AdminMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -46,7 +46,7 @@ Route::middleware(['auth','is_passenger:passenger'])->group(function(){
 
 });
 
-Route::middleware(['auth','admin'])->group(function(){
+Route::middleware(['auth','is_admin:admin'])->group(function(){
     Route::get('/admin',[AdminController::class,'index']);
     
 });
