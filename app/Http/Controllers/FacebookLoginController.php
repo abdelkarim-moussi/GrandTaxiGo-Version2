@@ -10,22 +10,34 @@ use Laravel\Socialite\Facades\Socialite;
 
 class FacebookLoginController extends Controller
 {
-    public function redirectToFacebbok(){
-        return Socialite::driver('facebbok')->redirect();
-    }
+   
 
-    public function handleFacebookCallback(){
-        $googleUser = Socialite::driver('facebook')->user();
-        $user = User::where('email', $googleUser->email)->first();
-        $fullname = explode(' ',$googleUser->name);
+public function redirectToFacebook()
+ {
+    return Socialite::driver('facebook')->redirect();
+ }
 
-        if(!$user)
-        {
-            $user = User::create(['firstname' => $fullname[0],'lastname' => $fullname[1], 'email' => $googleUser->email,'phone'=>'null','account_type'=>'passenger','photo'=>'null', 'password' => Hash::make(rand(100000,999999))]);
-        }
+ public function handleFacebookCallback()
+ {
 
-        Auth::login($user);
+  try {
+       $user = Socialite::driver('facebook')->user();
 
-        redirect('index');
-    }
+       $saveUser = User::updateOrCreate([
+           'facebook_id' => $user->getId(),
+       ],[
+           'name' => $user->getName(),
+           'email' => $user->getEmail(),
+           'password' => Hash::make($user->getName().'@'.$user->getId())
+            ]);
+
+       Auth::loginUsingId($saveUser->id);
+
+       return redirect()->route('index');
+       } catch (\Throwable $th) {
+          throw $th;
+       }
 }
+}
+
+

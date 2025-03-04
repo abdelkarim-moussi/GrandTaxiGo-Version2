@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('account_type',['driver','passenger']);
             $table->string('password');
             $table->timestamps();
+            $table->string('facebook_id')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

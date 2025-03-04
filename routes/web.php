@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegistredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\FacebookLoginController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
@@ -51,4 +52,7 @@ Route::middleware(['guest'])->group(function(){
 
     Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
     Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+    
+    Route::get('/facebook/redirect', [FacebookLoginController::class, 'redirectToFacebook'])->name('facebook.redirect');
+    Route::get('/facebook/callback', [FacebookLoginController::class, 'handleFAcebookCallback'])->name('facebook.callback');
 });

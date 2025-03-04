@@ -77,6 +77,7 @@
                         Se connecter
                     </button>
                     <a href="{{ route('google.redirect')}}">login with google</a>
+                    <a href="{{ route('facebook.redirect')}}">login with facebook</a>
                 </div>
                 @csrf
             </form>
