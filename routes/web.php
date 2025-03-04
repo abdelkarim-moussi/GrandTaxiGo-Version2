@@ -8,7 +8,7 @@ use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\GoogleLoginController;
-
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,6 +37,12 @@ Route::middleware(['auth','is_passenger:passenger'])->group(function(){
     Route::get('/passenger',[PassengerController::class,'show']);
     Route::post('/reserve',[ReservationController::class,'store']);
     Route::get('/reservations/{id}',[ReservationController::class,'cancel']);
+
+    Route::controller(StripePaymentController::class)->group(function(){
+        Route::get('stripe', 'stripe');
+        Route::post('stripe', 'stripePost')->name('stripe.post');
+    });
+    
 });
 
 Route::get('/logout',[AuthenticatedSessionController::class,'logout']);
@@ -56,3 +62,4 @@ Route::middleware(['guest'])->group(function(){
     Route::get('/facebook/redirect', [FacebookLoginController::class, 'redirectToFacebook'])->name('facebook.redirect');
     Route::get('/facebook/callback', [FacebookLoginController::class, 'handleFAcebookCallback'])->name('facebook.callback');
 });
+

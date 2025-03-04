@@ -99,28 +99,6 @@
                     </div>
                     
                 </div>
-<!-- 
-                <div>
-                  
-                    <div>
-                        <label for="status" class="block text-sm font-medium text-gray-700"">Status</label>
-                        <div class="mt-2 space-y-4">
-                            <div class="flex items-center">
-                                <input id="disponible" name="status" type="radio" class="h-4 w-4 text-yellow-500 focus:ring-yellow-500 border-gray-300" value="disponible" checked>
-                                <label for="disponible" class="ml-3 block text-sm font-medium text-gray-700">
-                                    Disponible
-                                </label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="not_disponible" name="status" type="radio" class="h-4 w-4 text-yellow-500 focus:ring-yellow-500 border-gray-300" value="not disponible">
-                                <label for="not_disponible" class="ml-3 block text-sm font-medium text-gray-700">
-                                    Not Disponible
-                                </label>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div> -->
 
                 <div class="flex items-center">
                     <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-yellow-500 focus:ring-yellow-500 border-gray-300 rounded">
@@ -138,6 +116,11 @@
                         </span>
                         Créer un compte
                     </button>
+
+                    <div class="flex flex-col gap-2 mt-4">
+                        <a href="{{ route('google.redirect')}}" class="w-full border rounded-md py-1 px-2 text-center hover:border-blue-600 flex gap-5 items-center justify-center"><img src="{{asset('imgs/google-icon.png')}}" class="w-[30px]" alt="google auth"> continue avec google</a>
+                        <a href="{{ route('facebook.redirect')}}" class="w-full border rounded-md py-1 px-2 text-center hover:border-blue-600 flex gap-5 items-center justify-center" ><img src="{{asset('imgs/facebook-icon.png')}}" class="w-[30px]" alt="facebook auth"> continue avec facebook</a>
+                    </div>
                 </div>
                 @csrf
             </form>
