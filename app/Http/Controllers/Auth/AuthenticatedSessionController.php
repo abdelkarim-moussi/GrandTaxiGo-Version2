@@ -23,18 +23,35 @@ class AuthenticatedSessionController extends Controller
                 'password'=>['required']
             ]
             );
+        $user = User::where('email','=',$attributes['email'])->first();
 
-        if(Auth::attempt($attributes)){
+        if($user->account_status == 'active')
+        {
 
-            $request->session()->regenerate();
+            if(Auth::attempt($attributes))
+            {
+
+                $request->session()->regenerate();
+                Auth::login($user);
+
+                if($user->account_type === 'admin'){
+                    return redirect('admin');
+                }
+        
+                else return redirect()->intended('reservations');
+
+            }
             
-            return redirect()->intended('reservations');
+            return back()->withErrors([
+                'email'=>'the provided crédentials do not mustch our records.',
+     
+            ]);
+           
         }
-
-        return back()->withErrors([
-            'email'=>'the provided crédentials do not mustch our records.',
- 
-        ]);
+        else
+        {
+            return redirect()->back()->with('message','your account has been suspended');
+        }
     }
 
     public function logout(Request $request)

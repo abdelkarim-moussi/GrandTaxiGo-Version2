@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailNotification;
 use App\Models\Driver;
 use App\Models\Reservation;
 use App\Models\User;
+use App\Notifications\ReservationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class ReservationController extends Controller
@@ -18,20 +21,20 @@ class ReservationController extends Controller
         $condition = 'reservations.user_id';
         $redirection = '/passenger';
         if(Auth::user()->account_type == "driver"){
-            $condition = 'reservations.driver_id';
+            $condition = 'driver_id';
             $redirection = '/driver';
+            $driver = Driver::where('user_id','=',Auth::user()->id)->first();
         }
 
-        $reservations = Reservation::with('user','driver')
+
         // ->join('users','reservations.user_id','=','users.id')
         // ->join('drivers','reservations.driver_id','=','reservations.driver_id')
-        ->where($condition,'=',Auth::user()->id)
+        $reservations = Reservation::where('driver_id','=',$driver->id)
         ->get();
-
+       
         $drivers = DB::table('drivers')
         ->join('users','drivers.user_id','=','users.id')
         ->get();
-        // dd($drivers);
 
         return view('dashboards'.$redirection,['reservations'=>$reservations,'drivers'=>$drivers]);
     }
@@ -63,6 +66,10 @@ class ReservationController extends Controller
 
         $reservation = Reservation::find($id);
         $reservation->update(['reservaton_status'=>'accepted']);
+
+        $user = User::where('id','=',$reservation->user_id)->first();
+        Mail::to($user->email)->send(new EmailNotification);
+
         return Redirect::back()->with('accepted','reservation accepted succefully !');
 
     }

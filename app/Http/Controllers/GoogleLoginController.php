@@ -33,8 +33,12 @@ class GoogleLoginController extends Controller
             if($user->account_type == 'admin'){
                 return redirect('admin');
             }
+            else if($user->account_type == 'driver')
+            {
+                return redirect('driver');
+            }
+            else return redirect('passenger');
 
-            return redirect('/');
         }
 
         else

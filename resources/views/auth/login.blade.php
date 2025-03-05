@@ -31,6 +31,11 @@
                         créez un nouveau compte
                     </a>
                 </p>
+                @if(\Session::has('message'))
+                <div class="text-red-600 bg-red-300 py-1 w-full text-center rounded-md">
+                    {!! \Session::get('message') !!}
+                </div>
+                @endif
             </div>
             <form class="mt-8 space-y-6" action="/login" method="POST">
                 @csrf

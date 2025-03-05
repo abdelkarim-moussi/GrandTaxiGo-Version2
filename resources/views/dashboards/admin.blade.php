@@ -235,6 +235,11 @@
 
         <!-- Users -->
         <div class="mt-8">
+
+            @if(\Session::has('message'))
+                <div class="my-2 py-1 text-gray-600 bg-blue-300 text-center w-full rounded-md">{!! Session::get('message') !!}</div>
+            @endif
+
             <div class="bg-white shadow rounded-lg">
                 <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -304,9 +309,9 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <div>
                                                 @if($user->account_status == 'active')
-                                                <a href="" class="text-white bg-red-600 px-3 py-1 rounded-md">suspend</a>
+                                                <a href="/account/{{$user->id}}/suspend" class="text-white bg-red-600 px-3 py-1 rounded-md">suspendre</a>
                                                 @else
-                                                <a href="" class="text-white bg-green-600 px-2 rounded-md">activate</a>
+                                                <a href="/account/{{$user->id}}/activate" class="text-white bg-green-600 px-3 py-1 rounded-md">activer</a>
                                                 @endif
                                                 </div>
                                             </td>
@@ -316,6 +321,7 @@
                                      
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>

@@ -50,6 +50,8 @@ Route::middleware(['auth','is_passenger:passenger'])->group(function(){
 
 Route::middleware(['auth','is_admin:admin'])->group(function(){
     Route::get('/admin',[AdminController::class,'index']);
+    Route::get('/account/{user}/suspend',[AdminController::class,'suspendAccount']);
+    Route::get('/account/{user}/activate',[AdminController::class,'activateAccount']);
     
 });
 
