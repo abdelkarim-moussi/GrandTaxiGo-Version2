@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ReservationController extends Controller
 {
@@ -68,7 +70,16 @@ class ReservationController extends Controller
         $reservation->update(['reservaton_status'=>'accepted']);
 
         $user = User::where('id','=',$reservation->user_id)->first();
-        Mail::to($user->email)->send(new EmailNotification);
+
+        $reservationInfo = 
+        "Username: {$user->firstname} {$user->lastname}\n" .
+        "Date de prise en charge: {$reservation->date}\n" .
+        "Lieu de prise en charge: {$reservation->location}\n" .
+        "Destination: {$reservation->destination}\n" .
+        "Date reservation: " . date('Y-m-d', strtotime($reservation->created_at)) . "\n";
+        $qrcodePath = QRcodeController::generate($reservationInfo);
+
+        Mail::to($user->email)->send(new EmailNotification($reservationInfo,$qrcodePath));
 
         return Redirect::back()->with('accepted','reservation accepted succefully !');
 

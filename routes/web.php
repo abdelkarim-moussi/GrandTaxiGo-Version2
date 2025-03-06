@@ -29,14 +29,14 @@ Route::middleware(['auth'])->group(function(){
 Route::get('/drivers',[DriverController::class,'index']);
 Route::post('/search',[DriverController::class,'search']);
 
-Route::middleware(['auth','is_driver:driver'])->group(function(){
+Route::middleware(['auth','User_Role:driver'])->group(function(){
     Route::get('/driver',[DriverController::class,'show']);
     Route::get('/profile/updateDriverStatus/{status}',[DriverController::class,'updateStatus']);
     Route::get('/reservations/accept/{id}',[ReservationController::class,'accept']);
     Route::get('/reservations/refuse/{id}',[ReservationController::class,'refuse']);
 });
 
-Route::middleware(['auth','is_passenger:passenger'])->group(function(){
+Route::middleware(['auth','User_Role:passenger'])->group(function(){
     Route::get('/passenger',[PassengerController::class,'show']);
     Route::post('/reserve',[ReservationController::class,'store']);
     Route::get('/reservations/{id}',[ReservationController::class,'cancel']);
@@ -48,7 +48,7 @@ Route::middleware(['auth','is_passenger:passenger'])->group(function(){
 
 });
 
-Route::middleware(['auth','is_admin:admin'])->group(function(){
+Route::middleware(['auth','User_Role:admin'])->group(function(){
     Route::get('/admin',[AdminController::class,'index']);
     Route::get('/account/{user}/suspend',[AdminController::class,'suspendAccount']);
     Route::get('/account/{user}/activate',[AdminController::class,'activateAccount']);
