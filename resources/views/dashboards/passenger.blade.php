@@ -100,9 +100,11 @@
                     
                     @endif
 
+                    @if($reservation->reservaton_status == "done")
                     <button id="review-btn" onclick="addReview('{{$reservation->driver_id}}','{{$reservation->user_id}}')" class="bg-yellow-500 text-white px-4 py-1 rounded-lg hover:bg-yellow-600 transition">
                         Laisser un avis
                     </button>
+                    @endif
                 </div>
             </div>
             @endforeach

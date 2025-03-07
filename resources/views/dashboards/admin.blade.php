@@ -139,7 +139,7 @@
                                         </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
-                                        <span class="font-medium text-yellow-500">Il y a {{$user->created_at->diffInHours(now())}} heures</span>
+                                        <span class="font-medium">Il y a {{number_format($user->created_at->diffInHours(now()))}} h</span>
                                     </div>
                                 </li>
                                 @endforeach
@@ -186,44 +186,28 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
+                                        @foreach($reservations as $reservation)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900">Karim Benjelloun</div>
+                                                <div class="text-sm font-medium text-gray-900">{{ $reservation->user_id}}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">Hassan Alaoui</div>
+                                                <div class="text-sm text-gray-900">{{ $reservation->driver_id}}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">Casablanca → Rabat</div>
+                                                <div class="text-sm text-gray-900">{{ $reservation->location}} → {{$reservation->destination}}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    Terminé
+                                                    {{ $reservation->reservaton_status }}
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 250 MAD
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900">Fatima Zahra</div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">Youssef Idrissi</div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">Marrakech → Agadir</div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                    En cours
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                400 MAD
-                                            </td>
-                                        </tr>
+                                        @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>

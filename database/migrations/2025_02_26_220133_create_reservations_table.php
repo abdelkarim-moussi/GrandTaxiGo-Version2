@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('destination');
             $table->foreignIdFor(Driver::class);
             $table->foreignIdFor(User::class);
-            $table->enum('reservaton_status',['pending','accepted','refused','canceled'])->default('pending');
+            $table->enum('reservaton_status',['pending','accepted','refused','canceled','ontheway','done'])->default('pending');
             $table->timestamps();
         });
     }

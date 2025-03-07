@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +17,15 @@ class ProfileController extends Controller
     public function index(){
         $user = User::where('id','=',Auth::user()->id)->with('reviews')->first();
         $avgnote = number_format((float) DB::table('reviews')->where('driver_id','=',$user->id)->avg('note'),1);
-
+        $courses_number = count(Reservation::all()->where('reservaton_status','=','done'));
         $driver = null;
 
         if($user->account_type == "driver"){
             $driver =  $driver = Driver::where('user_id' ,'=', $user->id)->with('reviews')->first();
-             $avgnote = number_format((float) DB::table('reviews')->where('driver_id','=',$driver->id)->avg('note'),1);
+            $avgnote = number_format((float) DB::table('reviews')->where('driver_id','=',$driver->id)->avg('note'),1);
         }
         
-        return view('profile.index',['user'=>$user,'driver'=>$driver,'avgnote'=>$avgnote]);
+        return view('profile.index',['user'=>$user,'driver'=>$driver,'avgnote'=>$avgnote,'numcourses'=>$courses_number]);
     }
 
     public function update(Request $request){

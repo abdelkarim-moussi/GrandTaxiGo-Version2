@@ -42,26 +42,30 @@
                     <div class="mt-6 border-t border-gray-200 pt-6">
                         <div class="text-center">
                             <h3 class="text-lg font-medium text-gray-900">{{ $user->firstname ." ".$user->lastname }}</h3>
-                            <p class="text-sm text-gray-500">Membre depuis {{ $user->created_at }}</p>
+                            <p class="text-sm text-gray-500">Membre depuis {{ date('Y',strtotime($user->created_at)) }}, le mois {{ date('m',strtotime($user->created_at)) }}</p>
+                            <p class="text-sm text-gray-600 mt-2 bg-slate-100">{{ $user->account_type }}</p>
                         </div>
+                        @if(Auth::user()->account_type != 'admin')
                         <div class="mt-6">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-500">Note moyenne</span>
                                 <span class="text-gray-900 font-medium"><i class="fas fa-star text-yellow-500 mr-1"></i>{{$avgnote}}</span>
                             </div>
+                            @if(Auth::user()->account_type == 'driver')
                             <div class="flex justify-between text-sm mt-3">
                                 <span class="text-gray-500">Courses effectuées</span>
-                                <span class="text-gray-900 font-medium">127</span>
+                                <span class="text-gray-900 font-medium">{{ $numcourses }}</span>
                             </div>
                             <div class="flex items-center space-x-4 my-2">
                                 <span class="text-sm text-gray-600">Status:</span>
-                                @if(Auth::user()->account_type == 'driver')
+                                
                                 <a href="profile/updateDriverStatus/{{ $driver->status }}" class="bg-green-500 text-white capitalize px-4 py-1 rounded-lg hover:bg-green-600 transition">  
                                     {{ $driver->status}}
                                 </a>
-                                @endif
                             </div>
+                            @endif
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

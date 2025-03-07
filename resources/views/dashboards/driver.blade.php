@@ -90,7 +90,7 @@
                                 </dt>
                                 <dd class="flex items-baseline">
                                     <div class="text-2xl font-semibold text-gray-900">
-                                        4.8/5
+                                        {{$avgnote}}/5
                                     </div>
                                 </dd>
                             </dl>
@@ -123,7 +123,7 @@
                             <div>
                                 <h3 class="text-lg font-medium text-gray-900">{{ $reservation->firstname .' '.$reservation->lastname }}</h3>
                                 <p class="text-sm text-gray-500">{{ $reservation->location }} → {{ $reservation->destination }}</p>
-                                <p class="text-sm text-gray-500">{{ $reservation->date }} • 3 passagers</p>
+                                <p class="text-sm text-gray-500">{{ $reservation->date }}</p>
                             </div>
                         </div>
                         @if($reservation->reservaton_status == 'pending')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewReservation;
 use App\Mail\EmailNotification;
 use App\Models\Driver;
 use App\Models\Reservation;
@@ -27,6 +28,7 @@ class ReservationController extends Controller
             $condition = 'driver_id';
             $redirection = '/driver';
             $driver = Driver::where('user_id','=',Auth::user()->id)->first();
+            $avgnote = number_format((float) DB::table('reviews')->where('driver_id','=',$driver->id)->avg('note'),1);
         }
 
         // ->join('users','reservations.user_id','=','users.id')
@@ -38,7 +40,7 @@ class ReservationController extends Controller
         ->join('users','drivers.user_id','=','users.id')
         ->get();
 
-        return view('dashboards'.$redirection,['reservations'=>$reservations,'drivers'=>$drivers]);
+        return view('dashboards'.$redirection,['reservations'=>$reservations,'drivers'=>$drivers,'avgnote'=>$avgnote]);
     }
 
     public function store(Request $request)
@@ -52,9 +54,11 @@ class ReservationController extends Controller
         $validated['driver_id'] = $request->driverid;
         $validated['user_id'] = Auth::user()->id;
 
-        Reservation::create($validated);
+        $reservation = Reservation::create($validated);
 
-        return response()->json(['success' => 'votre réservation et créer avec succés']);
+        event(new NewReservation($reservation));
+
+        return back()->with('success','votre réservation et créer avec succés');
     }
 
     public function cancel($id){
