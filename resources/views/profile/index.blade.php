@@ -6,6 +6,7 @@
     <title>Mon Profil - PIPYalah</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -46,7 +47,7 @@
                         <div class="mt-6">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-500">Note moyenne</span>
-                                <span class="text-gray-900 font-medium">4.8/5</span>
+                                <span class="text-gray-900 font-medium"><i class="fas fa-star text-yellow-500 mr-1"></i>{{$avgnote}}</span>
                             </div>
                             <div class="flex justify-between text-sm mt-3">
                                 <span class="text-gray-500">Courses effectuées</span>

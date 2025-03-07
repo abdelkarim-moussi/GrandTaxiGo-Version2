@@ -6,20 +6,25 @@ use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+use function Termwind\parse;
 
 class ProfileController extends Controller
 {
     
     public function index(){
-        $user = User::find(Auth::user()->id);
-        
+        $user = User::where('id','=',Auth::user()->id)->with('reviews')->first();
+        $avgnote = number_format((float) DB::table('reviews')->where('driver_id','=',$user->id)->avg('note'),1);
+
         $driver = null;
 
         if($user->account_type == "driver"){
-            $driver =  $driver = Driver::where('user_id' ,'=', $user->id)->first();;
+            $driver =  $driver = Driver::where('user_id' ,'=', $user->id)->with('reviews')->first();
+             $avgnote = number_format((float) DB::table('reviews')->where('driver_id','=',$driver->id)->avg('note'),1);
         }
         
-        return view('profile.index',['user'=>$user,'driver'=>$driver]);
+        return view('profile.index',['user'=>$user,'driver'=>$driver,'avgnote'=>$avgnote]);
     }
 
     public function update(Request $request){

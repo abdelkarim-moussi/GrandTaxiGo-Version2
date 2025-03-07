@@ -20,20 +20,20 @@ class ReservationController extends Controller
     
     public function reservations(){
 
-        $condition = 'reservations.user_id';
+        $condition = 'user_id';
         $redirection = '/passenger';
+
         if(Auth::user()->account_type == "driver"){
             $condition = 'driver_id';
             $redirection = '/driver';
             $driver = Driver::where('user_id','=',Auth::user()->id)->first();
         }
 
-
         // ->join('users','reservations.user_id','=','users.id')
         // ->join('drivers','reservations.driver_id','=','reservations.driver_id')
-        $reservations = Reservation::where('driver_id','=',$driver->id)
+        $reservations = Reservation::where($condition,'=',$driver->id ?? Auth::user()->id)
         ->get();
-       
+        
         $drivers = DB::table('drivers')
         ->join('users','drivers.user_id','=','users.id')
         ->get();

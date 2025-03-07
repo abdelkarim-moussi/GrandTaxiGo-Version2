@@ -11,9 +11,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+        }
+        .star-rating,.rating {
+            color: #fbbf24;
         }
     </style>
 </head>
@@ -93,10 +97,12 @@
                     <a href="reservations/{{ $reservation->id }}" class="cancel-reservation bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
                         Annuler
                     </a>
-                    <!-- <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">
-                        Contacter le chauffeur
-                    </button> -->
+                    
                     @endif
+
+                    <button id="review-btn" onclick="addReview('{{$reservation->driver_id}}','{{$reservation->user_id}}')" class="bg-yellow-500 text-white px-4 py-1 rounded-lg hover:bg-yellow-600 transition">
+                        Laisser un avis
+                    </button>
                 </div>
             </div>
             @endforeach
@@ -104,6 +110,110 @@
         </div>
     </div>
 
+    <!-- Review Form -->
+    <div class="bg-white rounded-md shadow-md mb-8 hidden absolute top-20 right-20 z-20 w-full max-w-[350px]" id="review-modal">
+            <div class="border-b px-4 py-2">
+                <h4 class="text-md font-semibold text-gray-800">Laisser un avis</h4>
+            </div>
+            <div class="p-6">
+                <form id="reviewForm" class="space-y-4" action="/review" method="POST">
+                    @csrf
+                    <div>
+                        <label class="block text-gray-700 mb-2">Notation</label>
+                        <div class="star-rating flex gap-1">
+                            <i class="far fa-star cursor-pointer" data-rating="1"></i>
+                            <i class="far fa-star cursor-pointer" data-rating="2"></i>
+                            <i class="far fa-star cursor-pointer" data-rating="3"></i>
+                            <i class="far fa-star cursor-pointer" data-rating="4"></i>
+                            <i class="far fa-star cursor-pointer" data-rating="5"></i>
+                        </div>
+                    </div>
+
+                    <input id="note" name="note" value="0" type="hidden" min="0" max="5">
+                    <input id="driver-id" name="driver-id" value="0" type="hidden" min="0" max="5">
+                    <input id="user-id" name="user-id" value="0" type="hidden" min="0" max="5">
+                    <div>
+                        <label for="reviewComment" class="block text-gray-700 mb-2">Votre Commentaire</label>
+                        <textarea name="review-comment" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                id="reviewComment" rows="3" required></textarea>
+                    </div>
+
+                    <div class="flex justify-between gap-4">
+                            
+                        <button type="submit" 
+                                class="bg-yellow-600 text-white px-4 py-1 rounded-md hover:bg-yellow-700 transition duration-200">
+                            Laisser Avis
+                        </button>
+
+                        <button id="annuler-avis-btn" type="button" 
+                                class="bg-red-600 text-white px-4 py-1 rounded-md hover:bg-red-700 transition duration-200">
+                            annuler
+                        </button>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <script>
+        // Star rating functionality
+        document.querySelectorAll('.star-rating .fa-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                document.querySelectorAll('.star-rating .fa-star').forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+
+                    document.getElementById('note').value = rating;
+                });
+            });
+        });
+
+        // Handle review form submission
+        // document.getElementById('reviewForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     const comment = document.getElementById('reviewComment').value;
+        //     const rating = document.querySelectorAll('.star-rating .fas').length;
+            
+        //     // Add new review to the reviews container
+        //     const reviewsContainer = document.getElementById('reviewsContainer');
+        //     const newReview = document.createElement('div');
+        //     newReview.className = 'border rounded-lg p-4';
+        //     newReview.innerHTML = `
+        //         <div class="star-rating mb-2">
+        //             ${Array(5).fill(0).map((_, i) => `<i class="${i < rating ? 'fas' : 'far'} fa-star"></i>`).join('')}
+        //         </div>
+        //         <p class="text-gray-700 mb-2">${comment}</p>
+        //         <small class="text-gray-500">Posted just now</small>
+        //     `;
+        //     // reviewsContainer.insertBefore(newReview, reviewsContainer.firstChild);
+            
+        //     // Reset form
+        //     this.reset();
+        //     document.querySelectorAll('.star-rating .fa-star').forEach(s => {
+        //         s.classList.remove('fas');
+        //         s.classList.add('far');
+        //     });
+        // });
+
+        document.getElementById('annuler-avis-btn').addEventListener('click',function(){
+            document.getElementById('review-modal').classList.add('hidden');
+        })
+
+        function addReview(driver_id,user_id){
+            document.getElementById('review-modal').classList.remove('hidden');
+            document.getElementById('driver-id').value = driver_id;
+            document.getElementById('user-id').value = user_id;
+        }
+
+    </script>
 
     <!-- <script src="{{ asset('js/script.js') }}"></script> -->
     

@@ -10,6 +10,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\RoleMiddleWare;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +25,11 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/profile',[ProfileController::class,'update']);
     Route::post('/profile/photo',[ProfileController::class,'updatePhoto']);
     Route::get('/reservations',[ReservationController::class,'reservations']);
-    
+
 });
 
-Route::get('/drivers',[DriverController::class,'index']);
-Route::post('/search',[DriverController::class,'search']);
+Route::get('/details',[UserController::class,'show']);
+
 
 Route::middleware(['auth','User_Role:driver'])->group(function(){
     Route::get('/driver',[DriverController::class,'show']);
@@ -35,6 +37,8 @@ Route::middleware(['auth','User_Role:driver'])->group(function(){
     Route::get('/reservations/accept/{id}',[ReservationController::class,'accept']);
     Route::get('/reservations/refuse/{id}',[ReservationController::class,'refuse']);
 });
+
+Route::post('/review',[UserController::class,'review'])->middleware(['auth']);
 
 Route::middleware(['auth','User_Role:passenger'])->group(function(){
     Route::get('/passenger',[PassengerController::class,'show']);
@@ -56,6 +60,13 @@ Route::middleware(['auth','User_Role:admin'])->group(function(){
 });
 
 Route::get('/logout',[AuthenticatedSessionController::class,'logout']);
+
+Route::controller(DriverController::class)->group(
+    function(){
+        Route::get('/drivers','index');
+        Route::post('/search','search'); 
+    }
+); 
 
 Route::middleware(['guest'])->group(function(){
     //register routes

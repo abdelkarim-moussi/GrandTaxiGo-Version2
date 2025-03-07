@@ -15,7 +15,6 @@ class DriverController extends Controller
         $drivers = DB::table('users')->where('account_type','=','driver')
         ->join('drivers','users.id','=','drivers.user_id')->get();
         return view('drivers.index',['drivers'=>$drivers]);
-
         // return response(view('drivers.index',array('drivers'=>$drivers)),200, ['Content-Type' => 'application/json']);
 
     }
@@ -26,7 +25,7 @@ class DriverController extends Controller
 
     public function updateStatus($status){
         // dd($status);
-        $driver = Driver::find(Auth::user()->id);
+        $driver = Driver::where('user_id','=',Auth::user()->id);
         if($status === "disponible"){
             $driver->update(['status'=>'not disponible']);
         }
